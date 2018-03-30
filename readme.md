@@ -1,6 +1,8 @@
 # Application User Event API
 The main goal of this API is to manage user events that happens in any application. User event is any action executed by the user also known as user activity log. The user event also can send notification by email and potentially by text messages. This API is running on laravel/lumen and it is the bridge to allow communication between an application and client.
 
+![notification process](https://user-images.githubusercontent.com/5614506/38152606-7c704344-341d-11e8-98fc-ced05bc7a2f4.jpeg)
+
 ## Rationale
 This API is designed to
 - Track any user event (create, update, delete actions).
