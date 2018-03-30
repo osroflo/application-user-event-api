@@ -1,0 +1,21 @@
+{
+  "name": "event-api",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Swagger API Documentation",
+  "keywords": [],
+  "author": "Sample",
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "hapi": "^10.0.0",
+    "swagger-hapi": "^0.1.0"
+  },
+  "devDependencies": {
+    "should": "^7.1.0",
+    "supertest": "^1.0.0"
+  },
+  "scripts": {
+    "edit": "swagger_swagger_fileName=docs/swagger/swagger.yaml swagger project edit"
+  }
+}

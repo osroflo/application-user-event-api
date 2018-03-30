@@ -1,0 +1,179 @@
+swagger: "2.0"
+
+info:
+  description: "Interactive api documentation to log events."
+  version: "1.0.0"
+  title: "Event API"
+
+host: "local.api.com"
+basePath: "/event/v1"
+
+tags:
+- name: "Application"
+  description: "Application application event logs"
+
+- name: "resource"
+  description: "Resource application event logs"
+
+schemes:
+- "http"
+- "https"
+
+# endpoints
+paths:
+
+# Application ENDPOINTS
+  /Application/log:
+    get:
+      tags:
+      - "Application"
+      summary: "Get all logged events for Application"
+      description: ""
+      operationId: "getEventLogs"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: Array of event logs
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Response"
+        404:
+          description: "Event not found"
+        405:
+          description: "Validation exception"
+
+    post:
+      tags:
+      - "Application"
+      summary: "Log a Application event"
+      description: "Log events for Application application"
+      operationId: "createApplicationEventById"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+
+      parameters:
+      - name: "event_type_id"
+        in: "query"
+        description: "The event type."
+        required: true
+        type: integer
+      - name: "ip_address"
+        in: "query"
+        description: "The IP address from the client that is firing the event."
+        required: true
+        type: integer
+      - name: "user_id"
+        in: "query"
+        description: "The user involved in the action."
+        required: true
+        type: integer
+      - name: "contact_id"
+        in: "query"
+        description: "The contact involved in the action."
+        required: true
+        type: integer
+      - name: "network_id"
+        in: "query"
+        description: "The network involved in the action."
+        required: true
+        type: integer
+      - name: "member_id"
+        in: "query"
+        description: "The user identity or membership involved in the action."
+        required: true
+        type: integer
+
+      responses:
+        200:
+          description: Array of event logs
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Response"
+
+        404:
+          description: "Not found"
+
+        405:
+          description: "Validation exception"
+
+
+# MODEL DEFINITION
+
+definitions:
+  EventLog:
+    type: "object"
+    required:
+    - "event_type_id"
+    - "ip_address"
+    - "user_id"
+    - "contact_id"
+    - "network_id"
+    - "member_id"
+
+    properties:
+      ip_address:
+        type: "string"
+      event_type_id:
+        type: "integer"
+      user_id:
+        type: "integer"
+      contact_id:
+        type: "integer"
+      network_id:
+        type: "integer"
+      member_id:
+        type: "integer"
+      properties:
+        type: "array"
+        items:
+          $ref: "#/definitions/EventLogProperties"
+      event_type:
+        $ref: "#/definitions/EventType"
+
+
+  EventLogProperties:
+    type: "object"
+    properties:
+        event_placeholder_id:
+          type: "integer"
+        value:
+          type: "string"
+
+  Response:
+    type: "object"
+    properties:
+        status_code:
+          type: "integer"
+        message:
+          type: "string"
+        data:
+          type: "array"
+          items:
+            $ref: "#/definitions/EventLog"
+
+  EventType:
+    type: "object"
+    properties:
+        label:
+          type: "string"
+        message:
+          type: "string"
+        category:
+          $ref: "#/definitions/Category"
+
+  Category:
+    type: "object"
+    properties:
+        label:
+          type: "string"
+        message:
+          type: "string"
+
+externalDocs:
+  description: "Find out more about Event API"
+  url: "https://confluence.Sample.org/display/NOT/Event-API"
